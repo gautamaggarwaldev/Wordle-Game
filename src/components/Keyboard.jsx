@@ -28,17 +28,15 @@ const Keyboard = ({ onKeyPress }) => {
           {index === 2 && (
             <>
               <button
-                className={`key special-key ${
-                  activeKey === "Enter" ? "active" : ""
-                }`}
+                className={`key special-key ${activeKey === "Enter" ? "active" : ""
+                  }`}
                 onClick={() => handleClick("Enter")}
               >
                 Enter
               </button>
               <button
-                className={`key special-key ${
-                  activeKey === "Backspace" ? "active" : ""
-                }`}
+                className={`key special-key ${activeKey === "Backspace" ? "active" : ""
+                  }`}
                 onClick={() => handleClick("Backspace")}
               >
                 Backspace

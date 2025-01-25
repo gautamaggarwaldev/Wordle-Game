@@ -1,4 +1,4 @@
-const Popup = ({message, onReplay}) => {
+const Popup = ({ message, onReplay }) => {
     return (
         <div className="popup-overlay">
             <div className="popup">
