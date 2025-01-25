@@ -1,23 +1,52 @@
-import logo from './logo.svg';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useCallback, useEffect, } from 'react';
 import './App.css';
+import Board from './components/Board';
+import Header from './components/Header';
+import Keyboard from './components/Keyboard';
+import Popup from './components/Popup';
+import { useWordleGame } from './hooks/useWordleGame';
+
 
 function App() {
+
+  const {
+    solution,
+    hint,
+    gusses,
+    currentRow,
+    message,
+    gameOver,
+    handleKeyPress,
+    resetGame
+  } = useWordleGame();
+
+  const handleKeyDown = useCallback((event) => {
+    const key = event.key.toLowerCase();
+    handleKeyPress(key);
+  }, [handleKeyPress])
+  
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [handleKeyDown])
+
+  
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='game-area'>
+        <Header />
+        <Board gusses={gusses} solution={solution} currentRow={currentRow} />
+        <div className='hint'>
+          <strong>Hint: {hint}</strong>
+        </div>
+       
+      </div>
+        <Keyboard onKeyPress={handleKeyPress} />
+        {gameOver && (<Popup message={message} onReplay={resetGame} />)}
     </div>
   );
 }
